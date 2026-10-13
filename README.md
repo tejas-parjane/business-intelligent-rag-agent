@@ -1,4 +1,6 @@
-# Business Intelligence RAG Agent
+# Business Intelligence RAG Agent — Applied AI (complements core ML work)
+
+> **Independent Applied-AI project** (self-directed demo). My core Data Science work is predictive modeling / forecasting in `attention-os`, `forecasting-engine`, and `growth-decision-engine`; this repo demonstrates applied LLM engineering alongside it.
 
 > A production-shaped, evidence-first GenAI application for answering business questions from documents, KPI definitions, and structured revenue data.
 
