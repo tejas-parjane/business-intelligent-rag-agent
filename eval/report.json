@@ -1,0 +1,196 @@
+{
+ "n_cases": 12,
+ "intent_accuracy": 1.0,
+ "abstention_accuracy": 1.0,
+ "mean_recall_at_2": 1.0,
+ "mean_coverage_answerable": 1.0,
+ "mean_latency_ms": 8.475,
+ "llm": "none (deterministic fallback; OPENAI_API_KEY unset)",
+ "cost_per_query_usd": 0.0,
+ "cases": [
+  {
+   "id": "q3_decline_why",
+   "intent": "metric_driver_analysis",
+   "intent_ok": true,
+   "abstained": false,
+   "abstention_ok": true,
+   "recall_at_2": 1.0,
+   "coverage": 1.0,
+   "citations_ok": true,
+   "citation_kinds": [
+    "document",
+    "metric",
+    "sql"
+   ],
+   "latency_ms": 20.9,
+   "answer_preview": "Revenue declined 21.7% from $1,200,000 in Q2 to $940,000 in Q3. The largest measured driver was Enterprise, down $200,000; SMB also fell $40,000. The retrieved analyst report attributes the Enterprise decline to delayed "
+  },
+  {
+   "id": "q3_totals",
+   "intent": "knowledge_lookup",
+   "intent_ok": true,
+   "abstained": false,
+   "abstention_ok": true,
+   "recall_at_2": 1.0,
+   "coverage": 1.0,
+   "citations_ok": true,
+   "citation_kinds": [
+    "document",
+    "metric",
+    "sql"
+   ],
+   "latency_ms": 10.4,
+   "answer_preview": "Revenue declined 21.7% from $1,200,000 in Q2 to $940,000 in Q3. The largest measured driver was Enterprise, down $200,000; SMB also fell $40,000. The retrieved analyst report attributes the Enterprise decline to delayed "
+  },
+  {
+   "id": "largest_driver",
+   "intent": "metric_driver_analysis",
+   "intent_ok": true,
+   "abstained": false,
+   "abstention_ok": true,
+   "recall_at_2": 1.0,
+   "coverage": 1.0,
+   "citations_ok": true,
+   "citation_kinds": [
+    "document",
+    "metric",
+    "sql"
+   ],
+   "latency_ms": 5.1,
+   "answer_preview": "Revenue declined 21.7% from $1,200,000 in Q2 to $940,000 in Q3. The largest measured driver was Enterprise, down $200,000; SMB also fell $40,000. The retrieved analyst report attributes the Enterprise decline to delayed "
+  },
+  {
+   "id": "smb_performance",
+   "intent": "knowledge_lookup",
+   "intent_ok": true,
+   "abstained": false,
+   "abstention_ok": true,
+   "recall_at_2": 1.0,
+   "coverage": 1.0,
+   "citations_ok": true,
+   "citation_kinds": [
+    "document",
+    "metric",
+    "sql"
+   ],
+   "latency_ms": 9.2,
+   "answer_preview": "Revenue declined 21.7% from $1,200,000 in Q2 to $940,000 in Q3. The largest measured driver was Enterprise, down $200,000; SMB also fell $40,000. The retrieved analyst report attributes the Enterprise decline to delayed "
+  },
+  {
+   "id": "renewals_narrative",
+   "intent": "knowledge_lookup",
+   "intent_ok": true,
+   "abstained": false,
+   "abstention_ok": true,
+   "recall_at_2": 1.0,
+   "coverage": 1.0,
+   "citations_ok": true,
+   "citation_kinds": [
+    "document",
+    "metric",
+    "sql"
+   ],
+   "latency_ms": 5.2,
+   "answer_preview": "Revenue declined 21.7% from $1,200,000 in Q2 to $940,000 in Q3. The largest measured driver was Enterprise, down $200,000; SMB also fell $40,000. The retrieved analyst report attributes the Enterprise decline to delayed "
+  },
+  {
+   "id": "metric_definition",
+   "intent": "knowledge_lookup",
+   "intent_ok": true,
+   "abstained": false,
+   "abstention_ok": true,
+   "recall_at_2": 1.0,
+   "coverage": 1.0,
+   "citations_ok": true,
+   "citation_kinds": [
+    "document",
+    "metric",
+    "sql"
+   ],
+   "latency_ms": 9.3,
+   "answer_preview": "Revenue declined 21.7% from $1,200,000 in Q2 to $940,000 in Q3. The largest measured driver was Enterprise, down $200,000; SMB also fell $40,000. The retrieved analyst report attributes the Enterprise decline to delayed "
+  },
+  {
+   "id": "headcount_unanswerable",
+   "intent": "knowledge_lookup",
+   "intent_ok": true,
+   "abstained": true,
+   "abstention_ok": true,
+   "recall_at_2": null,
+   "coverage": null,
+   "citations_ok": true,
+   "citation_kinds": [],
+   "latency_ms": 5.9,
+   "answer_preview": "I don't have evidence to answer that. I can answer questions about Q2 vs Q3 revenue by segment, the revenue metric definition, and the ingested business reports \u2014 all with cited sources. (Reason: no retrieved chunk share"
+  },
+  {
+   "id": "churn_unanswerable",
+   "intent": "knowledge_lookup",
+   "intent_ok": true,
+   "abstained": true,
+   "abstention_ok": true,
+   "recall_at_2": null,
+   "coverage": null,
+   "citations_ok": true,
+   "citation_kinds": [],
+   "latency_ms": 8.2,
+   "answer_preview": "I don't have evidence to answer that. I can answer questions about Q2 vs Q3 revenue by segment, the revenue metric definition, and the ingested business reports \u2014 all with cited sources. (Reason: no retrieved chunk share"
+  },
+  {
+   "id": "pricing_unanswerable",
+   "intent": "knowledge_lookup",
+   "intent_ok": true,
+   "abstained": true,
+   "abstention_ok": true,
+   "recall_at_2": null,
+   "coverage": null,
+   "citations_ok": true,
+   "citation_kinds": [],
+   "latency_ms": 5.3,
+   "answer_preview": "I don't have evidence to answer that. I can answer questions about Q2 vs Q3 revenue by segment, the revenue metric definition, and the ingested business reports \u2014 all with cited sources. (Reason: no retrieved chunk share"
+  },
+  {
+   "id": "gibberish_unanswerable",
+   "intent": "knowledge_lookup",
+   "intent_ok": true,
+   "abstained": true,
+   "abstention_ok": true,
+   "recall_at_2": null,
+   "coverage": null,
+   "citations_ok": true,
+   "citation_kinds": [],
+   "latency_ms": 4.9,
+   "answer_preview": "I don't have evidence to answer that. I can answer questions about Q2 vs Q3 revenue by segment, the revenue metric definition, and the ingested business reports \u2014 all with cited sources. (Reason: no retrieved chunk share"
+  },
+  {
+   "id": "q4_future",
+   "intent": "knowledge_lookup",
+   "intent_ok": true,
+   "abstained": false,
+   "abstention_ok": true,
+   "recall_at_2": 1.0,
+   "coverage": 0.0,
+   "citations_ok": true,
+   "citation_kinds": [
+    "document",
+    "metric",
+    "sql"
+   ],
+   "latency_ms": 9.5,
+   "answer_preview": "Revenue declined 21.7% from $1,200,000 in Q2 to $940,000 in Q3. The largest measured driver was Enterprise, down $200,000; SMB also fell $40,000. The retrieved analyst report attributes the Enterprise decline to delayed "
+  },
+  {
+   "id": "empty_db_robustness",
+   "intent": "metric_driver_analysis",
+   "intent_ok": true,
+   "abstained": true,
+   "abstention_ok": true,
+   "recall_at_2": null,
+   "coverage": null,
+   "citations_ok": true,
+   "citation_kinds": [],
+   "latency_ms": 7.8,
+   "answer_preview": "I don't have evidence to answer that. I can answer questions about Q2 vs Q3 revenue by segment, the revenue metric definition, and the ingested business reports \u2014 all with cited sources. (Reason: revenue_facts contains n"
+  }
+ ]
+}

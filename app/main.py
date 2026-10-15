@@ -4,10 +4,9 @@ from fastapi import Depends, FastAPI
 from sqlalchemy import create_engine, select, text
 from sqlalchemy.orm import Session, sessionmaker
 from .models import Base, Document, DocumentChunk, MetricDefinition, RevenueFact
-from .schemas import AskRequest, AskResponse, Citation, IngestRequest, IngestResponse
+from .schemas import AskRequest, AskResponse, IngestRequest, IngestResponse
 from .ingestion import ingest_text_document
-from .langchain_pipeline import retrieve_evidence, synthesize_with_langchain
-from .services import QueryService, classify, evaluate, grounded_answer
+from .answering import answer_question
 
 DATABASE_URL = os.getenv("DATABASE_URL", "sqlite:///./bi_rag.db")
 connect_args = {"check_same_thread": False} if DATABASE_URL.startswith("sqlite") else {}
@@ -62,19 +61,7 @@ def ingest_text(request: IngestRequest, db: Session = Depends(get_db)):
 
 @app.post("/ask", response_model=AskResponse)
 def ask(request: AskRequest, db: Session = Depends(get_db)):
-    intent = classify(request.question)
-    # LangChain LCEL graph retrieves the three evidence lanes in parallel.
-    evidence = retrieve_evidence(db, request.question)
-    data, docs, definition = evidence["data"], evidence["docs"], evidence["definition"]
-    citations = [
-        Citation(kind="sql", title="Governed revenue comparison", locator="revenue_facts: Q2 vs Q3 by segment", excerpt="Reviewed template; no generated SQL executed."),
-        Citation(kind="metric", title=definition.name, locator=f"{definition.source_table} | {definition.grain}", excerpt=definition.definition),
-    ]
-    for doc in docs:
-        citations.append(Citation(kind="document", title="Q3 Commercial Performance Review", locator=f"document_chunks:{doc['id']}", excerpt=doc["content"]))
-    fallback = grounded_answer(data, docs)
-    answer = synthesize_with_langchain(evidence, fallback)
-    return AskResponse(answer=answer, intent=intent.name, citations=citations, sql=QueryService.QOQ_REVENUE_SQL, data=data, evaluation=evaluate(answer, [c.model_dump() for c in citations]))
+    return answer_question(db, request.question)
 
 
 @app.post("/evaluate")

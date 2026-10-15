@@ -1,0 +1,138 @@
+{
+  "_comment": "Eval set for the BI RAG agent (seeded demo knowledge: Q2/Q3 revenue facts, one Q3 report chunk, Revenue metric definition). expected_phrases are matched case-insensitively against the ANSWER; expected_doc_contains against RETRIEVED chunks (recall@2).",
+  "cases": [
+    {
+      "id": "q3_decline_why",
+      "question": "Why did revenue decline in Q3?",
+      "intent": "metric_driver_analysis",
+      "answerable": true,
+      "expect_abstain": false,
+      "expected_phrases": ["21.7", "Enterprise", "200,000"],
+      "expected_doc_contains": ["procurement delays"],
+      "expected_citation_kinds": ["sql", "metric", "document"],
+      "notes": "Primary demo question; numbers and narrative both covered."
+    },
+    {
+      "id": "q3_totals",
+      "question": "What was total revenue in Q2 and Q3?",
+      "intent": "knowledge_lookup",
+      "answerable": true,
+      "expect_abstain": false,
+      "expected_phrases": ["$1,200,000", "$940,000"],
+      "expected_doc_contains": ["revenue"],
+      "expected_citation_kinds": ["sql", "metric", "document"],
+      "notes": "Totals are verbalized by the deterministic answer template."
+    },
+    {
+      "id": "largest_driver",
+      "question": "Which segment drove the Q3 revenue decline?",
+      "intent": "metric_driver_analysis",
+      "answerable": true,
+      "expect_abstain": false,
+      "expected_phrases": ["Enterprise", "200,000"],
+      "expected_doc_contains": ["Enterprise"],
+      "expected_citation_kinds": ["sql", "metric", "document"],
+      "notes": "Largest driver by measured change."
+    },
+    {
+      "id": "smb_performance",
+      "question": "How did SMB perform in Q3?",
+      "intent": "knowledge_lookup",
+      "answerable": true,
+      "expect_abstain": false,
+      "expected_phrases": ["SMB", "40,000"],
+      "expected_doc_contains": ["SMB"],
+      "expected_citation_kinds": ["sql", "metric", "document"],
+      "notes": "Second driver is verbalized; SMB acquisition headwind lives only in the report chunk."
+    },
+    {
+      "id": "renewals_narrative",
+      "question": "What happened with large renewals?",
+      "intent": "knowledge_lookup",
+      "answerable": true,
+      "expect_abstain": false,
+      "expected_phrases": ["renewals"],
+      "expected_doc_contains": ["renewals"],
+      "expected_citation_kinds": ["sql", "metric", "document"],
+      "notes": "Retrieval finds the chunk and the deterministic template verbalizes 'delayed renewals'."
+    },
+    {
+      "id": "metric_definition",
+      "question": "How is revenue defined?",
+      "intent": "knowledge_lookup",
+      "answerable": true,
+      "expect_abstain": false,
+      "expected_phrases": ["excluding tax"],
+      "expected_doc_contains": ["revenue"],
+      "expected_citation_kinds": ["sql", "metric", "document"],
+      "notes": "Metric definition is cited AND verbalized (added after eval v1 showed citation-without-verbalization)."
+    },
+    {
+      "id": "headcount_unanswerable",
+      "question": "What is our current headcount?",
+      "intent": "knowledge_lookup",
+      "answerable": false,
+      "expect_abstain": true,
+      "expected_phrases": [],
+      "expected_doc_contains": [],
+      "expected_citation_kinds": [],
+      "notes": "Zero lexical overlap with any chunk; must abstain, not answer about revenue."
+    },
+    {
+      "id": "churn_unanswerable",
+      "question": "Why did customers churn in Q3?",
+      "intent": "knowledge_lookup",
+      "answerable": false,
+      "expect_abstain": true,
+      "expected_phrases": [],
+      "expected_doc_contains": [],
+      "expected_citation_kinds": [],
+      "notes": "Churn is outside the knowledge base; must abstain."
+    },
+    {
+      "id": "pricing_unanswerable",
+      "question": "Did we change pricing in Q3?",
+      "intent": "knowledge_lookup",
+      "answerable": false,
+      "expect_abstain": true,
+      "expected_phrases": [],
+      "expected_doc_contains": [],
+      "expected_citation_kinds": [],
+      "notes": "Pricing is outside the knowledge base; must abstain."
+    },
+    {
+      "id": "gibberish_unanswerable",
+      "question": "asdf qwerty zxcv blorp",
+      "intent": "knowledge_lookup",
+      "answerable": false,
+      "expect_abstain": true,
+      "expected_phrases": [],
+      "expected_doc_contains": [],
+      "expected_citation_kinds": [],
+      "notes": "Nonsense input must abstain, not hallucinate."
+    },
+    {
+      "id": "q4_future",
+      "question": "What will revenue be in Q4?",
+      "intent": "knowledge_lookup",
+      "answerable": false,
+      "expect_abstain": false,
+      "expected_phrases": ["Q4"],
+      "expected_doc_contains": ["Q4"],
+      "expected_citation_kinds": ["sql", "metric", "document"],
+      "notes": "KNOWN GAP: answered with past Q2/Q3 data; no temporal guard for future questions (coverage expected 0)."
+    },
+    {
+      "id": "empty_db_robustness",
+      "question": "Why did revenue decline in Q3?",
+      "intent": "metric_driver_analysis",
+      "answerable": false,
+      "expect_abstain": true,
+      "expected_phrases": [],
+      "expected_doc_contains": [],
+      "expected_citation_kinds": [],
+      "setup": "empty_db",
+      "notes": "With all facts/documents deleted the system must abstain, never 500 (regression test for the drivers[0] IndexError)."
+    }
+  ]
+}

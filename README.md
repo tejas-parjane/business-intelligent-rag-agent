@@ -119,6 +119,46 @@ python scripts/train_retriever.py
 
 Run the automated retrieval/evaluation checks with `pytest`.
 
+## Evaluation (measured, deterministic — no LLM needed)
+
+`eval/qa_test_set.json` holds 12 labeled cases (answerable + unanswerable +
+a wiped-database robustness case). `eval/run_eval.py` runs each through the
+same `answer_question()` service as `/ask` and writes `eval/report.json`:
+
+```bash
+python eval/run_eval.py
+```
+
+| Measure | Result (seeded demo KB) |
+|---------|------------------------:|
+| Intent accuracy | 12/12 |
+| Abstention accuracy | 12/12 (answers when evidence exists, abstains otherwise) |
+| Retrieval recall@2 | 1.00 |
+| Answer-phrase coverage (answerable) | 1.00 |
+| Mean latency | ~9ms (deterministic fallback; LLM off, cost $0/query) |
+
+The harness caught two real issues that are now fixed and regression-tested:
+an `IndexError` on empty segment data (now abstains) and metric definitions
+cited but never verbalized (now stated in the answer).
+
+### Failure matrix — how the system behaves when things go wrong
+
+| Situation | Behavior (tested) |
+|-----------|-------------------|
+| Question outside the KB (headcount, churn, pricing, gibberish) | Abstains with an insufficient-evidence message, zero citations |
+| All facts/documents deleted | Abstains, no 500 (`test_empty_database_abstains_without_crash`) |
+| Future question ("revenue in Q4?") | **Known gap:** answered with past Q2/Q3 data; no temporal guard yet |
+| LLM provider down or unconfigured | Deterministic evidence-backed answer; never blocks on the LLM |
+| Semantic retrieval unavailable | Silent fallback to lexical retrieval |
+
+## Limitations
+
+- Single-metric, single-template scope: only the Revenue Q2-vs-Q3 comparison is governed; the KPI layer holds one definition.
+- Rule-based intent classification (two branches) — brittle outside revenue phrasing; adversarial or paraphrased intents are untested.
+- Lexical retrieval by default; semantic search needs PostgreSQL + a local embedding download, and the two paths can diverge.
+- Groundedness check is citation-presence + a fixed caveat phrase, not NLI claim verification; citation *accuracy* (does the cited chunk support the claim?) is measured only at the coarse phrase-coverage level.
+- No read-only DB role, audit log, or per-query cost accounting yet (see roadmap).
+
 ## Production extension roadmap
 
 - Add S3-triggered document ingestion, chunking, and metadata enrichment.
