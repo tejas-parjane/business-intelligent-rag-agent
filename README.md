@@ -4,7 +4,7 @@
 
 > A production-shaped, evidence-first GenAI application for answering business questions from documents, KPI definitions, and structured revenue data.
 
-> 🚀 **Live demo (no signup, no API key):** https://business-intelligence-rag-agent.streamlit.app
+> 🚀 **Live demo (no signup, no API key):** https://business-intelligent-rag-agent-anwnwmvr3efyz2y9getagj.streamlit.app
 
 This is a focused portfolio project demonstrating how to build a safe RAG workflow beyond a generic “chat with PDFs” demo. It combines **LangChain orchestration**, governed SQL retrieval, a vector-ready knowledge layer, citations, and evaluation behind a typed FastAPI service.
 
@@ -103,8 +103,10 @@ For a local API-only demo, run `pip install -r requirements.txt` then `uvicorn a
 1. Sign in at https://share.streamlit.io with your GitHub account.
 2. Click **Create app** → **Yup, I have an app**.
 3. Repository `tejas-parjane/business-intelligent-rag-agent`, branch `main`, main file path `app.py`.
-4. (Optional) Set the app URL subdomain to `business-intelligence-rag-agent`.
+4. (Optional) In **Advanced settings**, set the app URL subdomain to `business-intelligent-rag-agent`.
 5. Click **Deploy**.
+
+The app is **public** by default (deployed from a public repo). If you see component boxes show a `Failed to fetch dynamically imported module` error on a cold start, that is a known Streamlit Cloud chunk-loading race — a refresh clears it.
 
 Streamlit Community Cloud installs `requirements.txt`, which is intentionally light (no PyTorch). Free apps sleep after 12 hours of inactivity and wake on the next visit.
 
