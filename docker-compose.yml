@@ -8,7 +8,9 @@ services:
     ports: ["5432:5432"]
     volumes: ["pgdata:/var/lib/postgresql/data"]
   api:
-    build: .
+    build:
+      context: .
+      dockerfile: Dockerfile.semantic
     command: uvicorn app.main:app --host 0.0.0.0 --port 8000 --reload
     environment:
       DATABASE_URL: postgresql+psycopg://bi_rag:bi_rag@db:5432/bi_rag
@@ -19,7 +21,9 @@ services:
     ports: ["8000:8000"]
     depends_on: [db]
   ui:
-    build: .
+    build:
+      context: .
+      dockerfile: Dockerfile.semantic
     command: streamlit run ui.py --server.address 0.0.0.0 --server.port 8501
     environment:
       API_URL: http://api:8000

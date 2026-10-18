@@ -3,9 +3,8 @@ title: Business Intelligence RAG Agent
 emoji: 📊
 colorFrom: indigo
 colorTo: pink
-sdk: streamlit
-sdk_version: 1.38.0
-app_file: app.py
+sdk: docker
+app_port: 8501
 pinned: false
 short_description: Evidence-first RAG over documents, KPIs, and governed SQL
 ---
@@ -112,7 +111,9 @@ For a local API-only demo, run `pip install -r requirements.txt` then `uvicorn a
 
 [`app.py`](app.py) is a self-contained Streamlit entrypoint that runs the RAG service **in-process** — no separate API server — so the Space is a single free container. It answers deterministically without an `OPENAI_API_KEY`, so there is nothing to leak and no per-query cost.
 
-1. Create a new Space at https://huggingface.co/new-space (SDK: **Streamlit**, hardware: **CPU basic (free)**).
+Hugging Face deprecated the built-in Streamlit SDK (2025-04-30), so this Space ships as a **Docker** Space: the root [`Dockerfile`](Dockerfile) installs the light `requirements.txt` and launches Streamlit on port 8501, matching `app_port: 8501` in the front matter above.
+
+1. Create a new Space at https://huggingface.co/new-space (SDK: **Docker** → **Blank**, hardware: **CPU basic (free)**).
 2. Push this repository to the Space:
 
    ```bash
@@ -120,7 +121,7 @@ For a local API-only demo, run `pip install -r requirements.txt` then `uvicorn a
    git push space main
    ```
 
-The Space reads the `sdk: streamlit` / `app_file: app.py` metadata from the front matter above and installs `requirements.txt`. To wire the deterministic LLM path, add `OPENAI_API_KEY` as a Space secret — but the public demo intentionally runs without it.
+To wire the LLM synthesis path, add `OPENAI_API_KEY` as a Space secret — but the public demo intentionally runs without it.
 
 ## Deploy to Render
 

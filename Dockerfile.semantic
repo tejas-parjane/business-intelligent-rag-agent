@@ -1,0 +1,8 @@
+# Full local image: runtime + the optional PyTorch/SentenceTransformers
+# semantic-retrieval stack. Used by docker-compose for the two-service demo.
+# The lean root Dockerfile (no torch) is what Hugging Face Spaces builds.
+FROM python:3.12-slim
+WORKDIR /app
+COPY requirements.txt requirements-semantic.txt ./
+RUN pip install --no-cache-dir -r requirements-semantic.txt
+COPY . .
