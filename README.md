@@ -1,8 +1,22 @@
+---
+title: Business Intelligence RAG Agent
+emoji: 📊
+colorFrom: indigo
+colorTo: pink
+sdk: streamlit
+sdk_version: 1.38.0
+app_file: app.py
+pinned: false
+short_description: Evidence-first RAG over documents, KPIs, and governed SQL
+---
+
 # Business Intelligence RAG Agent — Applied AI (complements core ML work)
 
 > **Independent Applied-AI project** (self-directed demo). My core Data Science work is predictive modeling / forecasting in `attention-os`, `forecasting-engine`, and `growth-decision-engine`; this repo demonstrates applied LLM engineering alongside it.
 
 > A production-shaped, evidence-first GenAI application for answering business questions from documents, KPI definitions, and structured revenue data.
+
+> 🚀 **Live demo (no signup, no API key):** https://huggingface.co/spaces/tejas-parjane/business-intelligence-rag-agent
 
 This is a focused portfolio project demonstrating how to build a safe RAG workflow beyond a generic “chat with PDFs” demo. It combines **LangChain orchestration**, governed SQL retrieval, a vector-ready knowledge layer, citations, and evaluation behind a typed FastAPI service.
 
@@ -91,6 +105,22 @@ LlamaIndex is intentionally not included: it overlaps with LangChain for this sc
 3. Open Streamlit at http://localhost:8501, or FastAPI docs at http://localhost:8000/docs.
 
 For a local API-only demo, run `pip install -r requirements.txt` then `uvicorn app.main:app --reload`. It uses SQLite automatically when `DATABASE_URL` is absent.
+
+`requirements.txt` is the light runtime set (API, Streamlit, evaluation). The optional PyTorch/SentenceTransformers semantic-retrieval stack lives in `requirements-semantic.txt` (`pip install -r requirements-semantic.txt`) and is only needed with `SEMANTIC_RETRIEVAL_ENABLED=true`.
+
+## Deploy to Hugging Face Spaces (live demo)
+
+[`app.py`](app.py) is a self-contained Streamlit entrypoint that runs the RAG service **in-process** — no separate API server — so the Space is a single free container. It answers deterministically without an `OPENAI_API_KEY`, so there is nothing to leak and no per-query cost.
+
+1. Create a new Space at https://huggingface.co/new-space (SDK: **Streamlit**, hardware: **CPU basic (free)**).
+2. Push this repository to the Space:
+
+   ```bash
+   git remote add space https://huggingface.co/spaces/<your-hf-username>/<space-name>
+   git push space main
+   ```
+
+The Space reads the `sdk: streamlit` / `app_file: app.py` metadata from the front matter above and installs `requirements.txt`. To wire the deterministic LLM path, add `OPENAI_API_KEY` as a Space secret — but the public demo intentionally runs without it.
 
 ## Deploy to Render
 

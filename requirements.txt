@@ -1,3 +1,8 @@
+# Runtime dependencies for the API, the Streamlit demo, and the evaluation harness.
+# Kept deliberately light so the public Hugging Face Spaces demo builds fast.
+# The optional local semantic-retrieval stack (PyTorch + SentenceTransformers)
+# lives in requirements-semantic.txt and is only needed when
+# SEMANTIC_RETRIEVAL_ENABLED=true.
 fastapi>=0.115,<1.0
 uvicorn[standard]>=0.30,<1.0
 sqlalchemy>=2.0,<3.0
@@ -7,8 +12,6 @@ openai>=1.40,<2.0
 langchain-core>=0.3,<1.0
 langchain-openai>=0.2,<1.0
 langchain-text-splitters>=0.3,<1.0
-sentence-transformers>=3.0,<4.0
-torch>=2.4,<3.0
 pgvector>=0.3,<1.0
 pypdf>=5.0,<6.0
 streamlit>=1.38,<2.0

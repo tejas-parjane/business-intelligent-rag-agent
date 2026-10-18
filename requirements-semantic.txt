@@ -1,0 +1,6 @@
+# Optional local semantic-retrieval stack. Installs the runtime dependencies
+# plus the PyTorch-backed embedding model used only when
+# SEMANTIC_RETRIEVAL_ENABLED=true (PostgreSQL + pgvector required).
+-r requirements.txt
+sentence-transformers>=3.0,<4.0
+torch>=2.4,<3.0
