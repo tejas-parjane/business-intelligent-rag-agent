@@ -4,7 +4,7 @@
 
 > A production-shaped, evidence-first GenAI application for answering business questions from documents, KPI definitions, and structured revenue data.
 
-> 🚀 **Live demo (no signup, no API key):** https://business-intelligent-rag-agent-anwnwmvr3efyz2y9getagj.streamlit.app
+> 🚀 **Live demo (no signup, no API key):** https://business-intelligent-rag-agent.streamlit.app
 
 This is a focused portfolio project demonstrating how to build a safe RAG workflow beyond a generic “chat with PDFs” demo. It combines **LangChain orchestration**, governed SQL retrieval, a vector-ready knowledge layer, citations, and evaluation behind a typed FastAPI service.
 
