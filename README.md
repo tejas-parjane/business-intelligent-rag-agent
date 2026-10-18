@@ -1,21 +1,10 @@
----
-title: Business Intelligence RAG Agent
-emoji: 📊
-colorFrom: indigo
-colorTo: pink
-sdk: docker
-app_port: 8501
-pinned: false
-short_description: Evidence-first RAG over documents, KPIs, and governed SQL
----
-
 # Business Intelligence RAG Agent — Applied AI (complements core ML work)
 
 > **Independent Applied-AI project** (self-directed demo). My core Data Science work is predictive modeling / forecasting in `attention-os`, `forecasting-engine`, and `growth-decision-engine`; this repo demonstrates applied LLM engineering alongside it.
 
 > A production-shaped, evidence-first GenAI application for answering business questions from documents, KPI definitions, and structured revenue data.
 
-> 🚀 **Live demo (no signup, no API key):** https://huggingface.co/spaces/tejas-parjane/business-intelligence-rag-agent
+> 🚀 **Live demo (no signup, no API key):** https://business-intelligence-rag-agent.streamlit.app
 
 This is a focused portfolio project demonstrating how to build a safe RAG workflow beyond a generic “chat with PDFs” demo. It combines **LangChain orchestration**, governed SQL retrieval, a vector-ready knowledge layer, citations, and evaluation behind a typed FastAPI service.
 
@@ -107,21 +96,23 @@ For a local API-only demo, run `pip install -r requirements.txt` then `uvicorn a
 
 `requirements.txt` is the light runtime set (API, Streamlit, evaluation). The optional PyTorch/SentenceTransformers semantic-retrieval stack lives in `requirements-semantic.txt` (`pip install -r requirements-semantic.txt`) and is only needed with `SEMANTIC_RETRIEVAL_ENABLED=true`.
 
-## Deploy to Hugging Face Spaces (live demo)
+## Deploy to Streamlit Community Cloud (live demo)
 
-[`app.py`](app.py) is a self-contained Streamlit entrypoint that runs the RAG service **in-process** — no separate API server — so the Space is a single free container. It answers deterministically without an `OPENAI_API_KEY`, so there is nothing to leak and no per-query cost.
+[`app.py`](app.py) is a self-contained Streamlit entrypoint that runs the RAG service **in-process** — no separate API server — so the hosted demo is a single free app. It answers deterministically without an `OPENAI_API_KEY`, so there is nothing to leak and no per-query cost.
 
-Hugging Face deprecated the built-in Streamlit SDK (2025-04-30), so this Space ships as a **Docker** Space: the root [`Dockerfile`](Dockerfile) installs the light `requirements.txt` and launches Streamlit on port 8501, matching `app_port: 8501` in the front matter above.
+1. Sign in at https://share.streamlit.io with your GitHub account.
+2. Click **Create app** → **Yup, I have an app**.
+3. Repository `tejas-parjane/business-intelligent-rag-agent`, branch `main`, main file path `app.py`.
+4. (Optional) Set the app URL subdomain to `business-intelligence-rag-agent`.
+5. Click **Deploy**.
 
-1. Create a new Space at https://huggingface.co/new-space (SDK: **Docker** → **Blank**, hardware: **CPU basic (free)**).
-2. Push this repository to the Space:
+Streamlit Community Cloud installs `requirements.txt`, which is intentionally light (no PyTorch). Free apps sleep after 12 hours of inactivity and wake on the next visit.
 
-   ```bash
-   git remote add space https://huggingface.co/spaces/<your-hf-username>/<space-name>
-   git push space main
-   ```
+To wire the LLM synthesis path, add `OPENAI_API_KEY` under **App settings → Secrets** — the public demo intentionally runs without it.
 
-To wire the LLM synthesis path, add `OPENAI_API_KEY` as a Space secret — but the public demo intentionally runs without it.
+## Deploy to Hugging Face Spaces (optional, paid)
+
+Hugging Face deprecated the built-in Streamlit SDK (2025-04-30) and, as of 2026, gated Docker/CPU Spaces behind a paid plan, so a Streamlit Space now requires **PRO** (or a paid org). If you have PRO, the root [`Dockerfile`](Dockerfile) already installs the light `requirements.txt` and launches Streamlit on port 8501 — create a Docker Space, add the front matter `sdk: docker` / `app_port: 8501`, and `git push`.
 
 ## Deploy to Render
 
