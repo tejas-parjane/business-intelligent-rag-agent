@@ -5,6 +5,8 @@
 > A production-shaped, evidence-first GenAI application for answering business questions from documents, KPI definitions, and structured revenue data.
 
 > 🚀 **Live demo (no signup, no API key):** https://business-intelligent-rag-agent.streamlit.app
+>
+> Free Streamlit apps sleep after inactivity. If the page asks you to wake the app, click the button and wait up to a minute. The evaluation results, failure matrix and sample questions below show the same behavior without the live app.
 
 This is a focused portfolio project demonstrating how to build a safe RAG workflow beyond a generic “chat with PDFs” demo. It combines **LangChain orchestration**, governed SQL retrieval, a vector-ready knowledge layer, citations, and evaluation behind a typed FastAPI service.
 
@@ -160,6 +162,8 @@ python eval/run_eval.py
 | Retrieval recall@2 | 1.00 |
 | Answer-phrase coverage (answerable) | 1.00 |
 | Mean latency | ~9ms (deterministic fallback; LLM off, cost $0/query) |
+
+The 12 cases are written by the project author against a small seeded knowledge base. Treat 12/12 as a regression check on this fixed set, not a benchmark of general retrieval or answer quality.
 
 The harness caught two real issues that are now fixed and regression-tested:
 an `IndexError` on empty segment data (now abstains) and metric definitions
